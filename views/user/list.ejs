@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+<div class="container-fluid"> 
+     <!-- Page Heading -->
+     <h1 class="h3 mb-2 text-gray-800">User List</h1> 
+     <!-- DataTales Example -->
+     <div class="card shadow mb-4">
+         <div class="card-header py-3">
+             <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+         </div>
+        <div class="card-body">
+
+             
+    <% if (messages.error) { %>
+        <div class="alert alert-danger">
+        <p style="color:red"><%- messages.error %></p></div>
+      <% } %>
+         
+      <% if (messages.success) { %>
+        <div class="alert alert-success">
+          <p style="color:green"><%- messages.success %></p> </div>
+      <% } %>
+     
+      
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                     <thead>
+                         <tr>
+                             <th>Name</th>
+                             <!-- <th>DOB</th> -->
+                             <!-- <th>Gender</th> -->
+                             <th>Official Email</th>
+                             <th>Personal Email</th>
+                             <th>Blood Group</th>
+                             <th>Contact Number</th>
+                             <th>Emergency Contact</th> 
+                             <th>Address</th>
+                             <th>Edit</th>
+                             <th>Delete</th>
+                         </tr>
+                     </thead>
+                      
+                     <tbody>
+                        <% userData.forEach(function( user){ %> 
+                         <tr>
+                             <td><%= user.name %></td>
+                             <!-- <td><%= user.dob.split("T")[0] %></td>
+                             <td><%= user.gender %></td>     -->
+                             <td><%= user.ofc_email   %></td> 
+                             <td><%= user.personal_email   %></td> 
+                             <td><%= user.blood_group   %></td> 
+                             <td><%= user.phone   %></td> 
+                             <td><%= user.emergency_contact %></td> 
+                             <td><%= user.address  %></td>
+                             <td><a href="edit/<%= user.user_id %>">Edit</a></td> 
+                             <td><a onclick="return confirm('Sure wants to delete ?')" href="delete/<%= user.user_id %>">Delete</a></td> 
+                         </tr>
+                         <% }) %>
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,12 @@
+
+.bg-forgot-password-image {
+    background: url("../img/forgot-password.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  .bg-reset-image {
+    background: url("../img/reset.png");
+    background-position: center;
+    background-size: cover;
+  }

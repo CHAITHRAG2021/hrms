@@ -1,0 +1,81 @@
+<%- include('../partials/header') %>
+<div class="container-fluid"> 
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Add User</h1> 
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Add User </h6>
+    </div>
+
+   <div class="card-body col-md-6">
+
+     
+    <% if (messages.error) { %>
+        <div class="alert alert-danger">
+        <p style="color:red"><%- messages.error %></p></div>
+      <% } %>
+         
+      <% if (messages.success) { %>
+        <div class="alert alert-success">
+          <p style="color:green"><%- messages.success %></p> </div>
+      <% } %>
+     
+    <form method="post" action="/user/addUserDetails"> 
+        <div class="form-group"> 
+            
+            <label for="name">Name</label>
+            <input type="text" class="form-control form-control-user" name="name"
+                    placeholder="Name"  >
+        </div>
+        <div class="form-group">
+            <label for="name">Gender</label> 
+            <select type="text" class="form-control form-control-user " name="gender"
+                placeholder="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option> 
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">DOB</label>  
+            <input type="date" max="<%= new Date().getFullYear();%>-01-01"  class="form-control form-control-user" name="dob"
+                  placeholder="DOB" > 
+        </div>
+        <div class="form-group">
+            <label for="name">Blood Group</label> 
+            <input type="text" class="form-control form-control-user" name="blood_group"
+                  placeholder="Blood Group" > 
+        </div> 
+        <div class="form-group"> 
+            <label for="name">Official Email</label>
+            <input type="email" class="form-control form-control-user" name="ofc_email"
+                placeholder="Ofc Email" >
+        </div>
+        <div class="form-group"> 
+            <label for="name">Personal Email</label>
+            <input type="email" class="form-control form-control-user" name="personal_email"
+                placeholder="Email" >
+        </div> 
+        <div class="form-group"> 
+            <label for="name">Contact Number</label> 
+            <input type="text" class="form-control form-control-user" name="phone"
+            placeholder="Contact Number"  >
+        </div>
+        <div class="form-group">
+            <label for="name">Emergency Contact</label>
+            <input type="text" class="form-control form-control-user" name="emergency_contact"
+            placeholder="Emergency Contact"  >
+        </div>   
+        <div class="form-group">
+            <label for="name">Address</label>
+            <textarea class="form-control form-control-user" name="address"
+                placeholder="Address"></textarea> 
+        </div>  
+        <button type="submit" class="btn btn-primary btn-user float-right ">
+          Save
+        </button> 
+  </form> 
+    </div>
+</div>
+<%- include('../partials/footer') %>

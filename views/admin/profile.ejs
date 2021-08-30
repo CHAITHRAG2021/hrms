@@ -1,0 +1,151 @@
+ <%- include('../partials/header') %> 
+
+   <!-- Begin Page Content -->
+    <div class="container-fluid">
+ 
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Update Profile</h1> 
+       
+  <div class="content">
+    <div class="container-fluid"> 
+   
+    <% if (messages.error) { %>
+      <div class="alert alert-danger">
+      <p style="color:red"><%- messages.error %></p></div>
+    <% } %>
+       
+    <% if (messages.success) { %>
+      <div class="alert alert-success">
+        <p style="color:green"><%- messages.success %></p> </div>
+    <% } %>
+     
+      <form method="post" action="./updateProfile"> 
+          <div class="form-group row">
+              <div class="col-sm-3 mb-3 mb-sm-0"> 
+                  <input type="hidden" class="form-control form-control-user" name="user_id"
+                placeholder="user_id" value="<%= userData.user_id %>">
+                <label for="name">Name</label>
+                  <input type="text" class="form-control form-control-user" name="name"
+                      placeholder="Name" value="<%= userData.name %>">
+              </div>
+              <div class="col-sm-3">
+              <label for="name">Gender</label> 
+              <input type="text" class="form-control form-control-user " name="gender"
+                  placeholder="gender" value="<%= userData.gender %>">
+              </div>
+              <div class="col-sm-3">
+                <label for="name">DOB</label>  
+                <input type="date" max="<%= new Date().getFullYear();%>-01-01"  class="form-control form-control-user" name="dob"
+                    placeholder="dob" value="<%= userData.dob %>"> 
+              </div>
+              <div class="col-sm-3">
+                <label for="name">Blood Group</label> 
+                <input type="text" class="form-control form-control-user" name="blood_group"
+                    placeholder="blood_group" value="<%= userData.blood_group %>"> 
+              </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0"> 
+              <label for="name">Official Email</label>
+              <input type="email" class="form-control form-control-user" name="ofc_email"
+                  placeholder="ofc_email" value="<%= userData.ofc_email %>">
+          </div>
+          <div class="col-sm-3"> 
+            <label for="name">Contact</label> 
+            <input type="text" class="form-control form-control-user" name="phone"
+              placeholder="phone" value="<%= userData.phone %>">
+          </div>
+          <div class="col-sm-3">
+            <label for="name">Emergency Contact</label>
+            <input type="text" class="form-control form-control-user" name="emergency_contact"
+              placeholder="emergency_contact" value="<%= userData.emergency_contact %>">
+          </div>
+        </div> 
+          <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="name">Personal Email</label>
+                <input type="email" class="form-control form-control-user" name="personal_email"
+                    placeholder="Email" value="<%= userData.personal_email %>"> 
+            </div> 
+            <div class="col-sm-6">
+              <label for="name">Address</label>
+              <textarea class="form-control form-control-user" name="address"
+                  placeholder="address"><%= userData.address %></textarea> 
+            </div>
+          </div>
+        
+          <button type="submit" class="btn btn-primary btn-user float-right ">
+            Update Profile
+          </button> 
+    </form>  
+  </div>
+  
+    <h1 class="h3 mb-4 mt-3 text-gray-800">Change Password</h3>
+      
+      <form method="post" action="./updateUserPassword"> 
+
+        <input type="hidden" class="form-control form-control-user" name="user_id" id="user_id" value="<%= userData.user_id %>" >
+
+
+            <div class=" col-md-6">
+
+              <div class="form-group"> 
+              <label for="name">Current Password</label> 
+                <input type="password" class="form-control form-control-user"
+                    name="old_password" placeholder="Old Password" id="current_password">
+                    <span id="cur_pass"></span>
+              </div> 
+
+              <div class="form-group "> 
+                <label for="name">New Password</label> 
+                  <input type="password" class="form-control form-control-user"
+                      name="password" placeholder="Password">
+              </div> 
+
+              <div class="form-group ">
+                <label for="name">Re-Enter Password</label> 
+                  <input type="password" class="form-control form-control-user"
+                  name="confirm_password" placeholder="Repeat Password">
+              </div> 
+
+          <button type="submit" class="btn btn-primary  float-right " id="update_password">
+              Update Password
+          </button> 
+        </div>
+      </form>  
+    </div>
+  </div> 
+</div> 
+</div>  
+
+ 
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('#update_password').prop('disabled', true);
+    $('#current_password').change(function(e){
+          var pass = $(this).val();  
+          var uid = $('#user_id').val();  
+          
+           $.ajax({
+                  type: "POST",
+                  url: "./verify_password",
+                  data:{ 
+                        'user_id' : uid,
+                        'password' : pass
+                      },
+                  success: function(result) { 
+                    console.log('RES:'+result); 
+                    if(!result){
+                      $('#update_password').prop('disabled', true);
+                      $("#cur_pass").html('<i class="fa fa-times-circle" style="color:red"  aria-hidden="true"></i>Wrong Password!');
+                    }else{
+                       $('#update_password').prop('disabled', false);
+                        $("#cur_pass").html('<i class="fa fa-check-circle" style="color:green" aria-hidden="true"></i>Password verified!'); 
+                    }
+                  }
+              });
+        });
+    });    
+</script> 
+    <%- include('../partials/footer') %>
